@@ -12,16 +12,27 @@ $(document).ready(function () {
   
   var currentHour = dayjs().hour();
 
-  $('.time-block').each(function() {
-    var hour = parseInt($(this).attr('id').split('-')[1]);
+  $(".time-block").each(function () {
+    var timeSlotHour = parseInt($(this).find(".hour").text().replace(/[^\d]/g, ""));
+    var updatedTime = dayjs().hour(timeSlotHour).format("hA");
+    $(this).find(".hour").text(updatedTime);
+  });
 
+  $('.time-block').each(function() {
+    
+    var hour = parseInt($(this).attr('id').split('-')[1]);
+    
+
+    $(this).removeClass('past present future')
     if (hour < currentHour) {
-      $(this).removeClass('present future').addClass('past');
+      $(this).addClass('past');
     } else if (hour === currentHour) {
-      $(this).removeClass('past future').addClass('present');
+      $(this).addClass('present');
     } else {
-      $(this).removeClass('past present').addClass('future');
+      $(this).addClass('future');
+      
     }
+    
   });
 
 
