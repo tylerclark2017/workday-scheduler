@@ -3,26 +3,30 @@
 // in the html.
 
 $(document).ready(function () {
-  $('.saveBtn').click(function() {
+  var timeSlots = [ // create objects for these instead of an array of strings
+  "12pm",
+  "1pm",
+  "2pm",
+  "3pm",
+  "4pm",
+  "5pm"
+];
+
+for (var i = 0; i < timeSlots.length; i++) {
+  var timeBlock = $("<div>").addClass("row time-block");
+  var hourElement = $("<div>").addClass("col-2 col-md-1 hour text-center py-3").text(timeSlots[i]);
+  var textareaElement = $("<textarea>").addClass("col-8 col-md-10 description").attr("rows", "3");
+  var saveButton = $("<button>").addClass("btn saveBtn col-2 col-md-1").attr("aria-label", "save").html('<i class="fas fa-save" aria-hidden="true"></i>');
+
+  timeBlock.append(hourElement, textareaElement, saveButton);
+  $("#time-blocks-container").append(timeBlock);
+}
+  $('.saveBtn').click(function() { 
     var timeBlockId = $(this).closest('.time-block').attr('id');
     var userInput = $(this).siblings('.description').val();
-    localStorage.setItem(timeBlockId, userInput);
-  });
-
-  
-  var currentHour = dayjs().hour();
-
-  $(".time-block").each(function () {
-    var timeSlotHour = parseInt($(this).find(".hour").text().replace(/[^\d]/g, ""));
-    var updatedTime = dayjs().hour(timeSlotHour).format("hA");
-    $(this).find(".hour").text(updatedTime);
-  });
-
-  $('.time-block').each(function() {
-    
-    var hour = parseInt($(this).attr('id').split('-')[1]);
-    
-
+    localStorage.setItem(timeBlockId, userInput); // look back at local storage unit on APIs
+    var hour = parseInt($(this).parent().attr('id').split('-')[1]);
+    var currentHour = dayjs().hour();
     $(this).removeClass('past present future')
     if (hour < currentHour) {
       $(this).addClass('past');
@@ -30,11 +34,20 @@ $(document).ready(function () {
       $(this).addClass('present');
     } else {
       $(this).addClass('future');
-      
     }
     
+    $(".time-block").each(function () {
+      var timeSlotHour = parseInt($(this).find(".hour").text().replace(/[^\d]/g, ""));
+      var updatedTime = dayjs().hour(timeSlotHour).format("hA");
+      $(this).find(".hour").text(updatedTime);
+    });
   });
-
+  $('.time-block').each(function() {
+    var currentDate = dayjs().format('dddd, MMMM D, YYYY');
+    document.getElementById('currentDay').textContent = currentDate;
+  });
+  }
+);
 
 
   // TODO: Add a listener for click events on the save button. This code should
@@ -55,4 +68,4 @@ $(document).ready(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
+;
