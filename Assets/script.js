@@ -3,6 +3,11 @@
 // in the html.
 
 $(document).ready(function () {
+  $('.time-block').each(function() {
+    var currentDate = dayjs().format('dddd, MMMM D, YYYY');
+    document.getElementById('currentDay').textContent = currentDate;
+  });
+  
   var timeSlots = [ // create objects for these instead of an array of strings
   "12pm",
   "1pm",
@@ -24,8 +29,10 @@ for (var i = 0; i < timeSlots.length; i++) {
   $('.saveBtn').click(function() { 
     var timeBlockId = $(this).closest('.time-block').attr('id');
     var userInput = $(this).siblings('.description').val();
+    
     localStorage.setItem(timeBlockId, userInput); // look back at local storage unit on APIs
-    var hour = parseInt($(this).parent().attr('id').split('-')[1]);
+
+    var hour = parseInt($(this).parent().attr('class').split('-')[1]);
     var currentHour = dayjs().hour();
     $(this).removeClass('past present future')
     if (hour < currentHour) {
@@ -42,10 +49,7 @@ for (var i = 0; i < timeSlots.length; i++) {
       $(this).find(".hour").text(updatedTime);
     });
   });
-  $('.time-block').each(function() {
-    var currentDate = dayjs().format('dddd, MMMM D, YYYY');
-    document.getElementById('currentDay').textContent = currentDate;
-  });
+  
   }
 );
 
