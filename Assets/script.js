@@ -8,31 +8,31 @@ $(document).ready(function () {
     document.getElementById('currentDay').textContent = currentDate;
   });
   
-  var timeSlots = [ // create objects for these instead of an array of strings
-  "12pm",
-  "1pm",
-  "2pm",
-  "3pm",
-  "4pm",
-  "5pm"
+  var timeSlots = [ 
+  "12PM",
+  "1PM",
+  "2PM",
+  "3PM",
+  "4PM",
+  "5PM"
 ];
 
+var idHour = 12
 for (var i = 0; i < timeSlots.length; i++) {
   var timeBlock = $("<div>").addClass("row time-block");
+  timeBlock.attr("id",idHour);
+  idHour++
   var hourElement = $("<div>").addClass("col-2 col-md-1 hour text-center py-3").text(timeSlots[i]);
   var textareaElement = $("<textarea>").addClass("col-8 col-md-10 description").attr("rows", "3");
   var saveButton = $("<button>").addClass("btn saveBtn col-2 col-md-1").attr("aria-label", "save").html('<i class="fas fa-save" aria-hidden="true"></i>');
 
   timeBlock.append(hourElement, textareaElement, saveButton);
   $("#time-blocks-container").append(timeBlock);
+  
 }
-  $('.saveBtn').click(function() { 
-    var timeBlockId = $(this).closest('.time-block').attr('id');
-    var userInput = $(this).siblings('.description').val();
-    
-    localStorage.setItem(timeBlockId, userInput); // look back at local storage unit on APIs
-
-    var hour = parseInt($(this).parent().attr('class').split('-')[1]);
+$(".time-block").each(function () {
+  var timeBlockId = $(this).attr('id');
+  var hour = parseInt(timeBlockId);
     var currentHour = dayjs().hour();
     $(this).removeClass('past present future')
     if (hour < currentHour) {
@@ -41,15 +41,22 @@ for (var i = 0; i < timeSlots.length; i++) {
       $(this).addClass('present');
     } else {
       $(this).addClass('future');
-    }
     
-    $(".time-block").each(function () {
-      var timeSlotHour = parseInt($(this).find(".hour").text().replace(/[^\d]/g, ""));
-      var updatedTime = dayjs().hour(timeSlotHour).format("hA");
-      $(this).find(".hour").text(updatedTime);
-    });
+    }
+})
+
+
+  $('.saveBtn').click(function() {
+
+    var timeBlockId = $(this).parent().attr('id');
+    var userInput = $(this).siblings('.description').val();
+    
+    localStorage.setItem(timeBlockId, userInput); 
+
   });
-  
+  for (var i = 9; i < 18; i++) {
+    $("#"+i+" .description").val(localStorage.getItem(i))
+  }
   }
 );
 
@@ -72,4 +79,4 @@ for (var i = 0; i < timeSlots.length; i++) {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-;
+
