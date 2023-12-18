@@ -8,3 +8,9 @@ The code source for this website is located in the index.html file inside the re
 Here is a link to my GitHub repository for this Challenge: https://github.com/tylerclark2017/workday-scheduler
 
 Here is a link to the GitHub pages URL for this Challenge: https://tylerclark2017.github.io/workday-scheduler/
+
+# Screenshots
+![Alt text](<Screenshots/Screenshot 2023-12-18 at 11.55.11 AM.png>)
+![Alt text](<Screenshots/Screenshot 2023-12-18 at 11.55.23 AM.png>)
+![Alt text](<Screenshots/Screenshot 2023-12-18 at 11.55.34 AM.png>)
+![Alt text](<Screenshots/Screenshot 2023-12-18 at 11.55.51 AM.png>)
