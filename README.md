@@ -5,4 +5,6 @@ This workday scheduler project was meant to expose us to day.js as well as conti
 The code source for this website is located in the index.html file inside the repository that is linked for this Challenge. I also utilized the Xpert Learning Assistant and, as previously mentioned, tutor Mila Hose, to help me finalize the code that is used to style each hour in grey, red, or green depending on the time (past, present, or future). 
 
 # Links
-Here is a link to my GitHub repository for this Challenge: 
+Here is a link to my GitHub repository for this Challenge: https://github.com/tylerclark2017/workday-scheduler
+
+Here is a link to the GitHub pages URL for this Challenge: https://tylerclark2017.github.io/workday-scheduler/
